@@ -1,0 +1,11 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 75vw;
+  height: calc((9 / 16) * 75vw);
+  background-color: white;
+}

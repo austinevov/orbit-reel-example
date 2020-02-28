@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Orbit Reel Test</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="orbit-reel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const root = document.getElementById('root');
+
+      OrbitReel.orbitReelCreateFromUrsula(
+        root,
+        'dfabffed61b65651b0e4ef9a0e72a0a5',
+        unit => {
+          console.log(unit);
+        }
+      );
+    </script>
+  </body>
+</html>
