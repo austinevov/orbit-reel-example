@@ -24,7 +24,7 @@ A unit has the following prototype:
 }
 ```
 
-###Getting Started
+### Getting Started
 
 1. Create your container element. Must have a fixed dimension of 16:9.
 2. Import the orbit-reel.js script
