@@ -61,6 +61,8 @@ IUnit {
 	bathrooms: number;
 	isUnavailable?: boolean;
 	floor: number;
+  floorplanName: string;
+  floorplanAssetsSrc: string[];
 }
 ```
 
