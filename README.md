@@ -63,6 +63,8 @@ IUnit {
 	floor: number;
   floorplanName: string;
   floorplanAssetsSrc: string[];
+  price: number;
+  squareFeet: number;
 }
 ```
 
