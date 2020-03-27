@@ -51,7 +51,7 @@ A unit has the following prototype:
 
 All selectors are prefixed with 'ev-'. Simply insert a separate stylesheet that defines rules for specific selectors, and your styling should cascade naturally. CSS was written to prevent strict coupling, so you shouldn't need to use any inelegant CSS hacks like `!important` and so forth.
 
-### Interface Documentation
+### Object Documentation
 
 ```
 IUnit {
@@ -78,20 +78,41 @@ IKeyplan {
 ```
 IOrbitReelOptions {
 	units?: IUnit[];
-	onUnitClicked?: (unit: IUnit) => void
+	onUnitClicked?: (unit: IUnit) => void;
+	//Called when the orbit reel is rotated. Theta ranges from 0-360. Dividing by three will give the exact frame number.
+	onThetaChanged?: (theta: number) => void;
+}
+```
+
+```
+ICustomOptions {
+	disableUnitFilterControls?: boolean;
+		DEFAULT: false
+	mode?: 'all' | 'units' | 'amenities';
+		DEFAULT: 'all'
+	initialFrameNumber?: number;
+		DEFAULT: 0
+}
+```
+
+```
+OrbitReelInstance {
+	overrideFilter: (filter: (unit: IUnit) => boolean);
 }
 ```
 
 ### API Documentation
 
-If your development already uses Ursula as a backend dependency, then the library can automatically pull most building information from Ursula without requiring manual input, thus simplifying the API entry point:
+If your property/development already uses Ursula as a backend dependency, then the library can automatically pull most building information from Ursula without requiring manual input, thus simplifying the API entry point:
 
 ```
 orbitReelCreateFromUrsula(
 	container: HTMLDivElement,
 	token: string,
-	onUnitClicked?: (unit: IUnit) => void
-)
+	onUnitClicked?: (unit: IUnit) => void,
+	onThetaChanged?: (theta: number) => void,
+	customOptions?: ICustomOptions
+): Promise<OrbitReelInstance>
 ```
 
 Example:
@@ -114,8 +135,9 @@ Regular, non-Ursula entrypoint:
 orbitReelFromToken(
   container: HTMLDivElement,
   token: string,
-  externalOptions: IOrbitReelOptions
-)
+  externalOptions: IOrbitReelOptions,
+	customOptions?: ICustomOptions
+): Promise<OrbitReelInstance>
 ```
 
 Example:
@@ -135,10 +157,67 @@ OrbitReel.orbitReelFromToken(
 		],
 		onUnitClicked: (unit) => {
 			console.log(unit);
+		},
+		onThetaChanged: (theta) => {
+			console.log(theta)
 		}
 	}
 );
 ```
+
+### Manipulating the Orbit Reel instance dynamically
+
+Initializing the Orbit Reel (either through orbitReelFromToken or orbitReelCreateFromUrsula) returns an OrbitReelInstance promise. This object permits direct access to the Orbit Reel instance as it's running, and can be used to manipulate the control flow of the viewer.
+
+See the object documentation above for a full list of manipulation methods available.
+
+When used in conjunction with `disableUnitFilterControls`, this function interface can be used to radically overhaul the inner workings of the application. For instance, users can disable the built-in unit filter controls, and provide their own -- creating and passing the updated unit filter directly to the library.
+
+Example showcasing a custom 'square foot' unit filter that hides units below the inputted square foot value:
+
+```
+<body>
+    <div id="root"></div>
+    <input type="number" id="minSquareFootFilter" />
+    <script>
+      const root = document.getElementById('root');
+      const input = document.getElementById('minSquareFootFilter');
+
+      OrbitReel.orbitReelCreateFromUrsula(
+        root,
+        'YOUR_TOKEN_HERE',
+        unit => {},
+        theta => {},
+        {
+          disableUnitFilterControls: true
+        }
+      ).then(instance => {
+        input.oninput = evt => {
+          const value = Number(input.value);
+          instance.overrideFilter(unit => unit.squareFeet >= value);
+        };
+      });
+    </script>
+  </body>
+```
+
+### Customization
+
+##### Disabling built in control menus
+
+Use the `disableUnitFilterControls` flag on the ICustomOptions interface when invoking the library
+
+##### Force reel into a specific mode
+
+Use the `mode` flag on the ICustomOptions interface.
+Available modes:
+`all` -- **DEFAULT** no mode enforcement, users can use built-in controls to switch between amenities and unit views.
+`units` -- forces the viewer into a unit search mode only, amenities are disabled
+`amenities` --- forces the viewer into an amenity/transition mode only, unit search is disabled
+
+##### Force reel to start at a specific frame
+
+Use the `initialFrameNumber` field on the ICustomOptions interface.
 
 ### Help! How do I get a token?
 
