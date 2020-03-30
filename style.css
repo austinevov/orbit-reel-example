@@ -9,3 +9,10 @@ body {
   height: calc((9 / 16) * 75vw);
   background-color: white;
 }
+
+@media screen and (max-width: 768px) {
+  #root {
+    width: 100vw;
+    height: calc((9 / 16) * 100vw);
+  }
+}
