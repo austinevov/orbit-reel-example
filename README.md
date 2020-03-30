@@ -78,6 +78,7 @@ IKeyplan {
 ```
 IOrbitReelOptions {
 	units?: IUnit[];
+	// Called when a unit is clicked, returning information about that unit in the callback
 	onUnitClicked?: (unit: IUnit) => void;
 	//Called when the orbit reel is rotated. Theta ranges from 0-360. Dividing by three will give the exact frame number.
 	onThetaChanged?: (theta: number) => void;
