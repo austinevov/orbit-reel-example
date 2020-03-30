@@ -93,6 +93,8 @@ ICustomOptions {
 		DEFAULT: 'all'
 	initialFrameNumber?: number;
 		DEFAULT: 0
+	disableAmenitiesGallery?: boolean;
+		DEFAULT: false
 }
 ```
 
@@ -204,9 +206,11 @@ Example showcasing a custom 'square foot' unit filter that hides units below the
 
 ### Customization
 
-##### Disabling built in control menus
+##### Disabling built in control menus/features
 
-Use the `disableUnitFilterControls` flag on the ICustomOptions interface when invoking the library
+Use the `disableUnitFilterControls` flag on the ICustomOptions interface when invoking the library.
+
+Use the `disableAmenitiesGallery` flag on the ICustomOptions interface to disable the amenities gallery feature.
 
 ##### Force reel into a specific mode
 
