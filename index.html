@@ -16,10 +16,31 @@
       OrbitReel.orbitReelCreateFromUrsula(
         root,
         'dfabffed61b65651b0e4ef9a0e72a0a5',
-        unit => {
-          console.log(unit);
-        }
+        {
+          onUnitClicked: unit => {},
+          onThetaChanged: theta => {},
+          onAmenityClicked: name => {
+            console.log(name);
+          },
+          onAmenityRegionClicked: ({ name, url }) => console.log(name, url)
+        },
+        { logoSrc: './generic_logo.png', disableUnitOverlay: false }
       );
+
+      // OrbitReel.orbitReelFromToken(
+      //   root,
+      //   'h41yf3bek5eb2cjx',
+      //   {
+      //     units: [],
+      //     onAmenityClicked: name => {
+      //       console.log(name);
+      //     },
+      //     onAmenityRegionClicked: ({ name, url }) => console.log(name, url)
+      //   },
+      //   {
+      //     disableAmenitiesGallery: true
+      //   }
+      // );
     </script>
   </body>
 </html>

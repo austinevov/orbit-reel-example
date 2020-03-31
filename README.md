@@ -2,7 +2,7 @@
 
 To initialize the library, call:
 
-`orbitCreelCreateFromUrsula(container, token, onUnitClicked)`
+`orbitCreelCreateFromUrsula(container, token)`
 
 ##### container
 
@@ -40,8 +40,10 @@ A unit has the following prototype:
   OrbitReel.orbitReelCreateFromUrsula(
 	root,
 	`${TOKEN}`,
-	unit => {
+	{
+		onUnitClicked: unit => {
 	  //handle unit click
+		}
 	}
   );
 </script>
@@ -82,6 +84,10 @@ IOrbitReelOptions {
 	onUnitClicked?: (unit: IUnit) => void;
 	//Called when the orbit reel is rotated. Theta ranges from 0-360. Dividing by three will give the exact frame number.
 	onThetaChanged?: (theta: number) => void;
+	// Called whenever an amenity is clicked, activating the transition
+	onAmenityClicked?: (name: string) => void;
+	// Called whenever a clickable subregion inside of an amenity is clicked
+  onAmenityRegionClicked?: (region: { name: string; url: string }) => void;
 }
 ```
 
@@ -94,6 +100,8 @@ ICustomOptions {
 	initialFrameNumber?: number;
 		DEFAULT: 0
 	disableAmenitiesGallery?: boolean;
+		DEFAULT: false
+	disableUnitOverlay?: boolean;
 		DEFAULT: false
 }
 ```
@@ -112,8 +120,7 @@ If your property/development already uses Ursula as a backend dependency, then t
 orbitReelCreateFromUrsula(
 	container: HTMLDivElement,
 	token: string,
-	onUnitClicked?: (unit: IUnit) => void,
-	onThetaChanged?: (theta: number) => void,
+	options?: IOrbitReelOptions,
 	customOptions?: ICustomOptions
 ): Promise<OrbitReelInstance>
 ```
@@ -126,8 +133,10 @@ const root = document.getElementById('root');
 OrbitReel.orbitReelCreateFromUrsula(
 	root,
 	'SOME_TOKEN_HERE',
-	unit => {
-		console.log(unit);
+	{
+		onUnitClicked: unit => {
+			console.log(unit);
+		}
 	}
 );
 ```
@@ -189,8 +198,10 @@ Example showcasing a custom 'square foot' unit filter that hides units below the
       OrbitReel.orbitReelCreateFromUrsula(
         root,
         'YOUR_TOKEN_HERE',
-        unit => {},
-        theta => {},
+				{
+					onUnitClicked: unit => {},
+        	onThetaChanged: theta => {}
+				},
         {
           disableUnitFilterControls: true
         }
