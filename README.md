@@ -103,6 +103,25 @@ ICustomOptions {
 		DEFAULT: false
 	disableUnitOverlay?: boolean;
 		DEFAULT: false
+	logoSrc?: string;
+	unitOverlayFields?: IUnitOverlayFields;
+}
+```
+
+```
+IUnitOverlayFields {
+	disableBedrooms?: boolean;
+		DEFAULT: false
+  disableBathrooms?: boolean;
+		DEFAULT: false
+  disableSize?: boolean;
+		DEFAULT: false
+  disableAvailability?: boolean;
+		DEFAULT: false
+  disablePricing?: boolean;
+		DEFAULT: false
+  disableFeatures?: boolean;
+		DEFAULT: false
 }
 ```
 
@@ -223,6 +242,8 @@ Use the `disableUnitFilterControls` flag on the ICustomOptions interface when in
 
 Use the `disableAmenitiesGallery` flag on the ICustomOptions interface to disable the amenities gallery feature.
 
+To modify the fields visible in the unit overlay, see documentation for IUnitOverlayFields above.
+
 ##### Force reel into a specific mode
 
 Use the `mode` flag on the ICustomOptions interface.
@@ -234,6 +255,10 @@ Available modes:
 ##### Force reel to start at a specific frame
 
 Use the `initialFrameNumber` field on the ICustomOptions interface.
+
+##### Custom Logo
+
+Pass 'logoSrc' inside of ICustomOptions when constructing the orbit reel instance.
 
 ### Help! How do I get a token?
 
