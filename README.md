@@ -105,6 +105,8 @@ ICustomOptions {
 		DEFAULT: false
 	logoSrc?: string;
 	unitOverlayFields?: IUnitOverlayFields;
+	labelFontSize?: number
+		DEFAULT: '16px'
 }
 ```
 
@@ -235,6 +237,10 @@ Example showcasing a custom 'square foot' unit filter that hides units below the
 ```
 
 ### Customization
+
+##### Label Font Size
+
+In some instances, you may want to modify the default label font size, especially if the default looks too crowded or too sparse. Use the 'labelFontSize' parameter on ICustomOptions when constructing the reel.
 
 ##### Disabling built in control menus/features
 
