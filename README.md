@@ -92,45 +92,58 @@ IOrbitReelOptions {
 ```
 
 ```
+ITranslations {
+	buildingsAmenities?: string;
+		DEFAULT: 'Buildings & Amenities'
+}
+
+```
+
 ICustomOptions {
-	disableUnitFilterControls?: boolean;
-		DEFAULT: false
-	mode?: 'all' | 'units' | 'amenities';
-		DEFAULT: 'all'
-	initialFrameNumber?: number;
-		DEFAULT: 0
-	disableAmenitiesGallery?: boolean;
-		DEFAULT: false
-	disableUnitOverlay?: boolean;
-		DEFAULT: false
-	logoSrc?: string;
-	unitOverlayFields?: IUnitOverlayFields;
-	labelFontSize?: number
-		DEFAULT: '16px'
+disableUnitFilterControls?: boolean;
+DEFAULT: false
+mode?: 'all' | 'units' | 'amenities';
+DEFAULT: 'all'
+initialFrameNumber?: number;
+DEFAULT: 0
+disableAmenitiesGallery?: boolean;
+DEFAULT: false
+disableUnitOverlay?: boolean;
+DEFAULT: false
+logoSrc?: string;
+unitOverlayFields?: IUnitOverlayFields;
+labelFontSize?: number
+DEFAULT: '16px'
+translations?: ITranslations
 }
+
 ```
 
 ```
+
 IUnitOverlayFields {
-	disableBedrooms?: boolean;
-		DEFAULT: false
-  disableBathrooms?: boolean;
-		DEFAULT: false
-  disableSize?: boolean;
-		DEFAULT: false
-  disableAvailability?: boolean;
-		DEFAULT: false
-  disablePricing?: boolean;
-		DEFAULT: false
-  disableFeatures?: boolean;
-		DEFAULT: false
+disableBedrooms?: boolean;
+DEFAULT: false
+disableBathrooms?: boolean;
+DEFAULT: false
+disableSize?: boolean;
+DEFAULT: false
+disableAvailability?: boolean;
+DEFAULT: false
+disablePricing?: boolean;
+DEFAULT: false
+disableFeatures?: boolean;
+DEFAULT: false
 }
+
 ```
 
 ```
+
 OrbitReelInstance {
-	overrideFilter: (filter: (unit: IUnit) => boolean);
+overrideFilter: (filter: (unit: IUnit) => boolean);
 }
+
 ```
 
 ### API Documentation
@@ -138,64 +151,72 @@ OrbitReelInstance {
 If your property/development already uses Ursula as a backend dependency, then the library can automatically pull most building information from Ursula without requiring manual input, thus simplifying the API entry point:
 
 ```
+
 orbitReelCreateFromUrsula(
-	container: HTMLDivElement,
-	token: string,
-	options?: IOrbitReelOptions,
-	customOptions?: ICustomOptions
+container: HTMLDivElement,
+token: string,
+options?: IOrbitReelOptions,
+customOptions?: ICustomOptions
 ): Promise<OrbitReelInstance>
+
 ```
 
 Example:
 
 ```
+
 const root = document.getElementById('root');
 
 OrbitReel.orbitReelCreateFromUrsula(
-	root,
-	'SOME_TOKEN_HERE',
-	{
-		onUnitClicked: unit => {
-			console.log(unit);
-		}
-	}
+root,
+'SOME_TOKEN_HERE',
+{
+onUnitClicked: unit => {
+console.log(unit);
+}
+}
 );
+
 ```
 
 Regular, non-Ursula entrypoint:
 
 ```
+
 orbitReelFromToken(
-  container: HTMLDivElement,
-  token: string,
-  externalOptions: IOrbitReelOptions,
-	customOptions?: ICustomOptions
+container: HTMLDivElement,
+token: string,
+externalOptions: IOrbitReelOptions,
+customOptions?: ICustomOptions
 ): Promise<OrbitReelInstance>
+
 ```
 
 Example:
 
 ```
+
 const root = document.getElementById('root');
 
 OrbitReel.orbitReelFromToken(
-	root,
-	'SOME_TOKEN_HERE',
-	{
-		units: [
-			{name: '107', bedrooms: 1, bathrooms: 1, isUnavailable: false, floor: 1},
-			{name: '207', bedrooms: 1, bathrooms: 1, isUnavailable: false, floor: 2},
-			{name: '307', bedrooms: 2, bathrooms: 2, isUnavailable: false, floor: 3},
-			{name: '407', bedrooms: 4, bathrooms: 4, isUnavailable: false, floor: 4},
-		],
-		onUnitClicked: (unit) => {
-			console.log(unit);
-		},
-		onThetaChanged: (theta) => {
-			console.log(theta)
-		}
-	}
+root,
+'SOME_TOKEN_HERE',
+{
+units: [
+{name: '107', bedrooms: 1, bathrooms: 1, isUnavailable: false, floor: 1},
+{name: '207', bedrooms: 1, bathrooms: 1, isUnavailable: false, floor: 2},
+{name: '307', bedrooms: 2, bathrooms: 2, isUnavailable: false, floor: 3},
+{name: '407', bedrooms: 4, bathrooms: 4, isUnavailable: false, floor: 4},
+],
+onUnitClicked: (unit) => {
+console.log(unit);
+},
+onThetaChanged: (theta) => {
+console.log(theta)
+}
+}
 );
+
 ```
 
 ### Manipulating the Orbit Reel instance dynamically
@@ -209,6 +230,7 @@ When used in conjunction with `disableUnitFilterControls`, this function interfa
 Example showcasing a custom 'square foot' unit filter that hides units below the inputted square foot value:
 
 ```
+
 <body>
     <div id="root"></div>
     <input type="number" id="minSquareFootFilter" />
@@ -219,10 +241,10 @@ Example showcasing a custom 'square foot' unit filter that hides units below the
       OrbitReel.orbitReelCreateFromUrsula(
         root,
         'YOUR_TOKEN_HERE',
-				{
-					onUnitClicked: unit => {},
+    			{
+    				onUnitClicked: unit => {},
         	onThetaChanged: theta => {}
-				},
+    			},
         {
           disableUnitFilterControls: true
         }
@@ -233,6 +255,7 @@ Example showcasing a custom 'square foot' unit filter that hides units below the
         };
       });
     </script>
+
   </body>
 ```
 
@@ -261,6 +284,14 @@ Available modes:
 ##### Force reel to start at a specific frame
 
 Use the `initialFrameNumber` field on the ICustomOptions interface.
+
+#### Copy modification
+
+To modify the text that appears within a button, customize the translations field in the custom objects parameter.
+
+For instance, to replace the 'Building & Amenities' text with 'Transitions', use:
+`{ buildingsAmenities: 'Transitions' }`
+as the value of the transitions field in custom options when constructing the reel.
 
 ##### Custom Logo
 
