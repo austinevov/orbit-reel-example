@@ -115,6 +115,25 @@ unitOverlayFields?: IUnitOverlayFields;
 labelFontSize?: number
 DEFAULT: '16px'
 translations?: ITranslations
+hideAvailableUnits?: boolean;
+DEFAULT: false
+hideUnavailableUnits?: boolean;
+DEFAULT: false
+labelFontSize?: number | string;
+DEFAULT: '12px'
+labelColor?: string;
+DEFAULT: '#0c690e'
+labelColor1BR?: string;
+DEFAULT: '#0c690e'
+labelColor2BR?: string;
+DEFAULT: '#0c690e'
+labelColor3BR?: string;
+DEFAULT: '#0c690e'
+labelColor4BR?: string;
+DEFAULT: '#0c690e'
+anchorActionBar?: 'top' | 'bottom';
+DEFAULT: 'bottom'
+
 }
 
 ```
