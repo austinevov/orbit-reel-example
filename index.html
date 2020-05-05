@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Orbit Reel Test</title>
     <link rel="stylesheet" href="./style.css" />
@@ -13,18 +16,49 @@
     <script>
       const root = document.getElementById('root');
 
+      // const units = OrbitReel.orbitReelFromToken(
+      //   root,
+      //   '4a713e5afbbc4d14b750ca57676673d0',
+      //   {
+      //     units: [
+      //       {
+      //         name: '201',
+      //         bedrooms: 1,
+      //         bathrooms: 1,
+      //         floor: 2,
+      //         isUnavailable: true,
+      //         floorplanAssetsSrc: [
+      //           'https://ursula.adminsage.com/img/files/98/Floorplans/5-22-17/REGULAR-CONDOS/01_floor_2.jpg',
+      //         ],
+      //         floorplanName: 'Dock View',
+      //         price: 0,
+      //         externalPrice: 2000000,
+      //         squareFeet: 749,
+      //         id: 26255,
+      //       },
+      //     ],
+      //     keyplans: [],
+      //     onUnitClicked: (unit) => {
+      //       console.log('unit', unit);
+      //     },
+      //     onThetaChanged: (theta) => {
+      //       // theta change
+      //     },
+      //   }
+
       OrbitReel.orbitReelCreateFromUrsula(
         root,
-        '50569d88fa7f4ce9bb284b497fcf2029',
+        'gqb2rz9lm19f8rywnjv4epm8ewixvdwx', // property.data.ursulaToken
+        {},
         {
-          onUnitClicked: unit => {},
-          onThetaChanged: theta => {},
-          onAmenityClicked: name => {
-            console.log(name);
-          },
-          onAmenityRegionClicked: ({ name, url }) => console.log(name, url)
-        },
-        { logoSrc: './generic_logo.png', disableUnitOverlay: false }
+          logoSrc: 'generic_logo.png',
+          disableAmenitiesGallery: true,
+          disableUnitFilterControls: false,
+          mode: 'all',
+          initialFrameNumber: 0,
+          disableIntroductionPopup: false,
+          anchorActionBar: 'bottom',
+        }
       );
 
       // OrbitReel.orbitReelFromToken(
